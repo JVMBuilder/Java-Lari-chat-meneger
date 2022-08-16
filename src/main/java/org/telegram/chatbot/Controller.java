@@ -21,31 +21,15 @@ public class Controller {
 
     public void update(Update update) {
         System.out.println("Update is working!");
-        boolean isBot = update.message().from().isBot();
 
-        long chatID = update.message().chat().id();
-        String updateText = update.message().text();
 
-        if (!updateText.isEmpty() && !isBot) {
-            if (updateText.equals("/start") || updateText.equals("/start@Chat2Dbot")) {
-                sendMessage(chatID, "Привет! Я чат бот для с*кса! Просто добавь меня в чат и дай мне права Администратора!" +
-                        "\nЧтобы увидеть список моих комманд отправь мне /help");
-            } else if (updateText.equals("/help") || updateText.equals("/help@Chat2Dbot")) {
-                sendMessage(chatID, "Вот список моих комманд:\n" +
-                        "РП(Ответом на чье то сообщение)(Можно строчными буквами):\n" +
-                        "Выебать" +
-                        "\nТрахнуть" +
-                        "\nИзнасиловать" +
-                        "\nДелать секс" +
-                        "\nРазорвать очко" +
-                        "\nПорвать пизду" +
-                        "\nДать в рот" +
-                        "\nПодрочить" +
-                        "\nЛизнуть" +
-                        "\nОбкончать");
-            }
+        System.out.println(update.message());
 
-        }else if (!updateText.isEmpty() && update.message()!=null && !update.message().replyToMessage().text().isEmpty()){
+        if (update.message() != null && update.message().text() != null && !update.message().text().isEmpty() && !update.message().from().isBot() && update.message().replyToMessage() != null) {
+
+
+            long chatID = update.message().chat().id();
+            String updateText = update.message().text();
             long firstUserID = update.message().from().id();
             String firstUserName = update.message().from().lastName() != null ? update.message().from().firstName() + " " + update.message().from().lastName() : update.message().from().firstName();
             String firstUserURL = String.format("[%s](%s)", firstUserName, "tg://openmessage?user_id=" + firstUserID);
@@ -77,6 +61,31 @@ public class Controller {
                 sendMessageForMarkdown(chatID, String.format("\uD83C\uDF46\uD83D\uDCA6| %s Обкончал %s", firstUserURL, secondUserURL));
             }
 
+
+        } else if (update.message() != null && update.message().text() != null && !update.message().text().isEmpty() && !update.message().from().isBot() && update.message().replyToMessage() == null) {
+
+            long chatID = update.message().chat().id();
+            String updateText = update.message().text();
+            if (updateText.equals("/start") || updateText.equals("/start@Larichatbot")) {
+                sendMessage(chatID, "Привет! Я чат бот для с*кса! Просто добавь меня в чат и дай мне права Администратора!" +
+                        "\nЧтобы увидеть список моих комманд отправь мне /help");
+            } else if (updateText.equals("/help") || updateText.equals("/help@Larichatbot")) {
+                sendMessage(chatID, "Вот список моих комманд:\n" +
+                        "РП(Ответом на чье то сообщение)(Можно строчными буквами):\n" +
+                        "Выебать" +
+                        "\nТрахнуть" +
+                        "\nИзнасиловать" +
+                        "\nДелать секс" +
+                        "\nРазорвать очко" +
+                        "\nПорвать пизду" +
+                        "\nДать в рот" +
+                        "\nПодрочить" +
+                        "\nЛизнуть" +
+                        "\nОбкончать");
+            }
+
+        } else {
+            System.out.println("Log");
         }
     }
 

@@ -1,0 +1,4 @@
+cat .gitignore
+*.class
+/.idea
+/build
